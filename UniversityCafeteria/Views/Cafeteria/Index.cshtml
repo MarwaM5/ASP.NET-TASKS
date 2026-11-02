@@ -8,10 +8,13 @@
 <h1>University Cafeteria</h1>
 <p>Welcome to the Cafeteria Supply Management System.</p>
 
-<a asp-controller="Cafeteria" asp-action="Products">Products</a>
-<br />
+@{
+    string universityName = "Orange University";
+    string managerName = "Ahmad Ali";
+    int totalProducts = 5;
+}
+<p>Welcome to @universityName</p>
+<p>manager's name:  @managerName</p>
+<p>Total Products: @totalProducts</p>
 
-<a asp-controller="Cafeteria" asp-action="Suppliers">Suppliers</a>
-<br />
 
-<a asp-controller="Cafeteria" asp-action="SupplyStatus">Supply Status</a>
