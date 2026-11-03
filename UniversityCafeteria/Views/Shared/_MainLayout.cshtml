@@ -16,11 +16,19 @@
                 University Cafeteria
             </a>
 
-            <div class="navbar-nav">
+            @* <div class="navbar-nav">
                 <a class="nav-link" href="/Cafeteria/Index">Home</a>
                 <a class="nav-link" href="/Cafeteria/Products">Products</a>
                 <a class="nav-link" href="/Cafeteria/Suppliers">Suppliers</a>
                 <a class="nav-link" href="/Cafeteria/SupplyStatus">Supply Status</a>
+            </div> *@
+
+            <div class="navbar-nav">
+              <a class="nav-link" asp-controller="Supply" asp-action="Index">Home</a>
+              <a class="nav-link" asp-controller="Supply" asp-action="Products">Products</a>
+              <a class="nav-link" asp-controller="Supply" asp-action="Suppliers">Suppliers</a>
+              <a class="nav-link" asp-controller="Supply" asp-action="CreateRequest">Create Request</a>
+              <a class="nav-link" asp-controller="Supply" asp-action="About">About</a>
             </div>
 
         </div>
