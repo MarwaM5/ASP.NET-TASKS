@@ -1,0 +1,324 @@
+﻿@model UniversityCafeteria.Models.SupplyRequest
+
+@{
+    ViewData["Title"] = "Create Supply Request";
+
+    var preferredPriority =
+        ViewBag.PreferredPriority as string ?? "Normal";
+}
+
+<h2>Create Supply Request</h2>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+@if (ViewBag.PreferenceMessage != null)
+{
+    <div class="alert alert-info">
+        @ViewBag.PreferenceMessage
+    </div>
+}
+
+<hr />
+
+<h3>Employee Preferences</h3>
+
+<p>Select your default request priority:</p>
+
+<form action="@Url.Action("SavePreference", "SupplyRequest")"
+      method="post">
+
+    @Html.AntiForgeryToken()
+
+    <div class="mb-3">
+        <label>Preferred Priority</label>
+
+        <select name="priority" class="form-control">
+            <option value="Normal"
+                    selected="@(preferredPriority == "Normal" ? "selected" : null)">
+                Normal
+            </option>
+
+            <option value="Urgent"
+                    selected="@(preferredPriority == "Urgent" ? "selected" : null)">
+                Urgent
+            </option>
+
+            <option value="Emergency"
+                    selected="@(preferredPriority == "Emergency" ? "selected" : null)">
+                Emergency
+            </option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-secondary">
+        Save Preference
+    </button>
+
+</form>
+
+<hr />
+
+<h3>Add Products</h3>
+
+<form action="@Url.Action("AddItem", "SupplyRequest")"
+      method="post"
+      onsubmit="return prepareSubmit()">
+
+    @Html.AntiForgeryToken()
+
+    <div class="mb-3">
+        <label>Product Name</label>
+        <input type="text" id="productName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Category</label>
+        <input type="text" id="category" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label>Quantity</label>
+        <input type="number" id="quantity"
+               class="form-control" min="1" />
+    </div>
+
+    <div class="mb-3">
+        <label>Unit Price</label>
+        <input type="number" id="unitPrice"
+               class="form-control" min="0.01" step="0.01" />
+    </div>
+
+    <div class="mb-3">
+        <label>Priority</label>
+
+        <select id="priority" class="form-control">
+            <option value="Normal"
+                    selected="@(preferredPriority == "Normal" ? "selected" : null)">
+                Normal
+            </option>
+
+            <option value="Urgent"
+                    selected="@(preferredPriority == "Urgent" ? "selected" : null)">
+                Urgent
+            </option>
+
+            <option value="Emergency"
+                    selected="@(preferredPriority == "Emergency" ? "selected" : null)">
+                Emergency
+            </option>
+        </select>
+    </div>
+
+    <button type="button"
+            class="btn btn-secondary"
+            onclick="addProduct()">
+        Add Product
+    </button>
+
+    <hr />
+
+    <h3>Added Products</h3>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Priority</th>
+            </tr>
+        </thead>
+
+        <tbody id="productsTable">
+
+            @if (Model.Items != null)
+            {
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td>@item.Category</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.UnitPrice</td>
+                        <td>@item.Priority</td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+
+    <div id="hiddenProducts">
+
+        @if (Model.Items != null)
+        {
+            @for (int i = 0; i < Model.Items.Count; i++)
+            {
+                <input type="hidden"
+                       name="Items[@i].ProductName"
+                       value="@Model.Items[i].ProductName" />
+
+                <input type="hidden"
+                       name="Items[@i].Category"
+                       value="@Model.Items[i].Category" />
+
+                <input type="hidden"
+                       name="Items[@i].Quantity"
+                       value="@Model.Items[i].Quantity" />
+
+                <input type="hidden"
+                       name="Items[@i].UnitPrice"
+                       value="@Model.Items[i].UnitPrice" />
+
+                <input type="hidden"
+                       name="Items[@i].Priority"
+                       value="@Model.Items[i].Priority" />
+            }
+        }
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Submit Supply Request
+    </button>
+
+</form>
+
+<script>
+
+    let itemIndex = @((Model.Items?.Count) ?? 0);
+
+    function addProduct()
+    {
+        let name = document.getElementById("productName");
+        let category = document.getElementById("category");
+        let quantity = document.getElementById("quantity");
+        let price = document.getElementById("unitPrice");
+
+        if (name.value.trim() === "")
+        {
+            alert("Product Name is required.");
+            name.focus();
+            return;
+        }
+
+        if (quantity.value === "" || Number(quantity.value) <= 0)
+        {
+            alert("Quantity must be greater than zero.");
+            quantity.focus();
+            return;
+        }
+
+        if (price.value === "" || Number(price.value) <= 0)
+        {
+            alert("Unit Price must be greater than zero.");
+            price.focus();
+            return;
+        }
+
+        addProductToList();
+
+        name.focus();
+    }
+
+    function addProductToList()
+    {
+        let name = document.getElementById("productName");
+        let category = document.getElementById("category");
+        let quantity = document.getElementById("quantity");
+        let price = document.getElementById("unitPrice");
+        let priority = document.getElementById("priority");
+
+        let product = {
+            name: name.value.trim(),
+            category: category.value,
+            quantity: quantity.value,
+            price: price.value,
+            priority: priority.value
+        };
+
+        let hiddenContainer = document.getElementById("hiddenProducts");
+
+        let fields = [
+            ["ProductName", product.name],
+            ["Category", product.category],
+            ["Quantity", product.quantity],
+            ["UnitPrice", product.price],
+            ["Priority", product.priority]
+        ];
+
+        fields.forEach(function(field)
+        {
+            let input = document.createElement("input");
+
+            input.type = "hidden";
+            input.name = `Items[${itemIndex}].${field[0]}`;
+            input.value = field[1];
+
+            hiddenContainer.appendChild(input);
+        });
+
+        let table = document.getElementById("productsTable");
+
+        let row = table.insertRow();
+
+        [
+            product.name,
+            product.category,
+            product.quantity,
+            product.price,
+            product.priority
+        ].forEach(function(value)
+        {
+            let cell = row.insertCell();
+            cell.textContent = value;
+        });
+
+        itemIndex++;
+
+        name.value = "";
+        category.value = "";
+        quantity.value = "";
+        price.value = "";
+
+        // Use the saved preferred priority for the next product
+        priority.value = "@preferredPriority";
+    }
+
+    function prepareSubmit()
+    {
+        let name = document.getElementById("productName");
+        let quantity = document.getElementById("quantity");
+        let price = document.getElementById("unitPrice");
+
+        // Add the entered product if Add Product was not clicked
+        if (name.value.trim() !== "")
+        {
+            if (quantity.value === "" || Number(quantity.value) <= 0)
+            {
+                alert("Quantity must be greater than zero.");
+                quantity.focus();
+                return false;
+            }
+
+            if (price.value === "" || Number(price.value) <= 0)
+            {
+                alert("Unit Price must be greater than zero.");
+                price.focus();
+                return false;
+            }
+
+            addProductToList();
+        }
+        else if (quantity.value !== "" || price.value !== "")
+        {
+            alert("Product Name is required.");
+            name.focus();
+            return false;
+        }
+
+        return true;
+    }
+
+</script>

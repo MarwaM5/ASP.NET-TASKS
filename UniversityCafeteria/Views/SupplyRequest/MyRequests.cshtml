@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<UniversityCafeteria.Models.SupplyRequest>
+
+@{
+    ViewData["Title"] = "My Supply Requests";
+}
+
+<h2>My Supply Requests</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No confirmed supply requests found.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Request ID</th>
+                <th>Number of Products</th>
+                <th>Subtotal</th>
+                <th>Preparation Fee</th>
+                <th>Discount</th>
+                <th>Final Total</th>
+                <th>Request Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var request in Model)
+            {
+                <tr>
+                    <td>@request.RequestId</td>
+                    <td>@request.Items.Count</td>
+                    <td>@request.Subtotal JD</td>
+                    <td>@request.PreparationFee JD</td>
+                    <td>@request.Discount JD</td>
+                    <td>@request.FinalTotal JD</td>
+                    <td>@request.RequestStatus</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

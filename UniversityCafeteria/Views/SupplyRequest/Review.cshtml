@@ -1,0 +1,106 @@
+﻿@model UniversityCafeteria.Models.SupplyRequest
+
+@{
+    ViewData["Title"] = "Review Supply Request";
+}
+
+<h2>Review Supply Request</h2>
+
+@if (Model != null && Model.Items != null && Model.Items.Count > 0)
+{
+    <h3>Products Details</h3>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Priority</th>
+                <th>Total Cost</th>
+                <th>Preparation Fee</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Category</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.UnitPrice JD</td>
+                    <td>@item.Priority</td>
+                    <td>@item.TotalCost JD</td>
+                    <td>@item.PreparationFee JD</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <hr />
+
+    <h3>Supply Request Calculation</h3>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>Subtotal</th>
+            <td>@Model.Subtotal JD</td>
+        </tr>
+
+        <tr>
+            <th>Preparation Fee</th>
+            <td>@Model.PreparationFee JD</td>
+        </tr>
+
+        <tr>
+            <th>Discount</th>
+            <td>@Model.Discount JD</td>
+        </tr>
+
+        <tr>
+            <th>Final Total</th>
+            <td><strong>@Model.FinalTotal JD</strong></td>
+        </tr>
+    </table>
+
+    <hr />
+
+    <div class="d-flex gap-2">
+
+       
+
+        <form action="@Url.Action("ClearDraft", "SupplyRequest")"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <button type="submit" class="btn btn-danger">
+                Clear Draft
+            </button>
+        </form>
+
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        No draft supply request is available.
+    </div>
+}
+
+@if (Model != null && Model.Items != null && Model.Items.Count > 0)
+{
+    <form asp-controller="SupplyRequest"
+          asp-action="ConfirmRequest"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <button type="submit" class="btn btn-success">
+            Confirm Request
+        </button>
+
+    </form>
+}
