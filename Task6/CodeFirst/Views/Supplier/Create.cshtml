@@ -1,0 +1,34 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Supplier
+
+<div class="page-container">
+
+    <h2>Create Supplier</h2>
+
+    <form asp-controller="Supplier" asp-action="Create" method="post">
+
+        <div class="form-group">
+            <label>Name</label>
+            @Html.TextBoxFor(m => m.Name)
+        </div>
+
+        <div class="form-group">
+            <label>Phone</label>
+            @Html.TextBoxFor(m => m.Phone)
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            @Html.TextBoxFor(m => m.Email)
+        </div>
+
+        <button type="submit" class="submit-button">Add</button>
+
+    </form>
+
+</div>
