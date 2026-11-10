@@ -1,0 +1,305 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+
+
+
+/* =========================
+
+/* =========================
+   Main Page
+========================= */
+
+body {
+    background-color: #FFF9EF;
+    color: #59443D;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* =========================
+   Navbar
+========================= */
+
+.navbar {
+    background-color: #E9A45B !important;
+    padding: 14px 0;
+    box-shadow: 0 2px 8px rgba(120, 75, 40, 0.10);
+}
+
+    .navbar .navbar-brand {
+        color: white !important;
+        font-weight: 700;
+    }
+
+    .navbar .nav-link {
+        color: white !important;
+        font-weight: 600;
+        text-decoration: none !important;
+        transition: 0.2s;
+    }
+
+        .navbar .nav-link:hover {
+            color: #FFF0B8 !important;
+        }
+
+/* =========================
+   Headings
+========================= */
+
+h1, h2, h3 {
+    color: #B85F4B;
+    font-weight: 700;
+    margin-bottom: 22px;
+}
+
+/* =========================
+   Tables
+========================= */
+
+.table {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(120, 75, 40, 0.08);
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+    .table th {
+        background-color: #FFE7A8;
+        color: #76502F;
+        padding: 16px;
+        border: none;
+    }
+
+    .table td {
+        padding: 16px;
+        vertical-align: middle;
+        border-color: #F5E7D6;
+    }
+
+    .table tbody tr:hover {
+        background-color: #FFF8E8;
+    }
+
+/* =========================
+   Add New Button
+========================= */
+
+a.add-new-button,
+a.btn-add {
+    display: inline-block;
+    background-color: #E77D65;
+    color: white !important;
+    padding: 11px 20px;
+    border-radius: 8px;
+    text-decoration: none !important;
+    border: none !important;
+    font-weight: 600;
+    margin-bottom: 16px;
+    transition: 0.2s;
+}
+
+    a.add-new-button:hover,
+    a.btn-add:hover {
+        background-color: #D96550;
+        text-decoration: none !important;
+    }
+
+/* =========================
+   Action Buttons
+========================= */
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-wrap: wrap;
+}
+
+    .action-buttons form {
+        margin: 0;
+    }
+
+    .action-buttons a,
+    .action-buttons button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 75px;
+        padding: 9px 13px;
+        border: none !important;
+        border-bottom: none !important;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none !important;
+        box-shadow: none;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    /* Details */
+
+    .action-buttons .btn-details {
+        background-color: #FFE7A8 !important;
+        color: #76502F !important;
+    }
+
+    /* Edit */
+
+    .action-buttons .btn-edit {
+        background-color: #F9D5B9 !important;
+        color: #99583F !important;
+    }
+
+    /* Delete */
+
+    .action-buttons .btn-delete {
+        background-color: #E77D65 !important;
+        color: white !important;
+    }
+
+    .action-buttons a:hover,
+    .action-buttons button:hover {
+        filter: brightness(0.94);
+        text-decoration: none !important;
+        transform: translateY(-1px);
+    }
+
+/* =========================
+   Forms
+========================= */
+
+input,
+select,
+textarea {
+    border: 1px solid #E8CBAE;
+    border-radius: 8px;
+    padding: 10px 12px;
+    background-color: white;
+    color: #59443D;
+}
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        outline: none;
+        border-color: #E9A45B;
+        box-shadow: 0 0 0 3px rgba(233, 164, 91, 0.15);
+    }
+
+label {
+    color: #765548;
+    font-weight: 600;
+}
+
+/* Create and Save Buttons */
+
+button,
+input[type="submit"] {
+    background-color: #E9A45B;
+    color: white;
+    padding: 10px 21px;
+    border: none !important;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+    button:hover,
+    input[type="submit"]:hover {
+        background-color: #D88B43;
+    }
+
+/* =========================
+   Low Stock
+========================= */
+
+.low-stock {
+    background-color: #FFE0D6;
+    color: #B94F42;
+    padding: 7px 11px;
+    border-radius: 7px;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+/* =========================
+   Details and Back Links
+========================= */
+
+a.page-link-button {
+    display: inline-block;
+    background-color: #E9A45B;
+    color: white !important;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none !important;
+    border: none !important;
+    font-weight: 600;
+}
+
+    a.page-link-button:hover {
+        background-color: #D88B43;
+    }
+
+/* =========================
+   Layout
+========================= */
+
+.container {
+    padding-top: 35px;
+    padding-bottom: 35px;
+}
+
+/* =========================
+   Footer
+========================= */
+
+footer {
+    border-top: 1px solid #F0E1D1;
+}
+
+    footer a {
+        color: #D96550 !important;
+        text-decoration: none !important;
+    }
+
+        footer a:hover {
+            color: #B85F4B !important;
+            text-decoration: underline !important;
+        }
+
+
+

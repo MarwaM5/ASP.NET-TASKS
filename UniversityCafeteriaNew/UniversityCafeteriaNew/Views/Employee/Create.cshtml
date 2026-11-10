@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Employee
+
+<h2>Create Employee</h2>
+
+<form method="post" asp-action="Create">
+
+    <label>Full Name</label>
+    <input type="text" name="FullName" />
+
+    <br /><br />
+
+    <label>Phone</label>
+    <input type="text" name="Phone" />
+
+    <br /><br />
+
+    <label>Email</label>
+    <input type="text" name="Email" />
+
+    <br /><br />
+
+    <label>Position</label>
+    <input type="text" name="Position" />
+
+    <br /><br />
+
+    <label>Salary</label>
+    <input type="number"  name="Salary" />
+
+    <br /><br />
+
+    <label>Hire Date</label>
+    <input type="date" name="HireDate" />
+
+    <br /><br />
+
+    <button type="submit">Create</button>
+
+</form>

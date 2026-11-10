@@ -1,0 +1,53 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Order
+
+<h2>Edit Order</h2>
+
+<form method="post" asp-action="Edit">
+
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <label>Customer Name</label>
+    <input type="text" name="CustomerName" value="@Model.CustomerName" />
+
+    <br /><br />
+
+    <label>Order Date</label>
+    <input type="date" name="OrderDate" value="@Model.OrderDate.ToString("yyyy-MM-dd")" />
+
+    <br /><br />
+
+    <label>Total Price</label>
+    <input type="number"  name="TotalPrice" value="@Model.TotalPrice" />
+
+    <br /><br />
+
+    <label>Status</label>
+    <input type="text" name="Status" value="@Model.Status" />
+
+    <br /><br />
+
+    <label>Employee</label>
+    <select name="EmployeeId">
+        @foreach (var item in ViewBag.Employees)
+        {
+            if (item.Id == Model.EmployeeId)
+            {
+                <option value="@item.Id" selected>@item.FullName</option>
+            }
+            else
+            {
+                <option value="@item.Id">@item.FullName</option>
+            }
+        }
+    </select>
+
+    <br /><br />
+
+    <button type="submit">Save</button>
+
+</form>

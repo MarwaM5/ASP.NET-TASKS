@@ -1,0 +1,59 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<Employee>
+
+<h2>Employees</h2>
+
+<a asp-action="Create" class="add-new-button">Add New Employee</a>
+
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Full Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Position</th>
+        <th>Salary</th>
+        <th>Hire Date</th>
+        <th>Orders Count</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var employee in Model)
+    {
+        <tr>
+            <td>@employee.Id</td>
+            <td>@employee.FullName</td>
+            <td>@employee.Phone</td>
+            <td>@employee.Email</td>
+            <td>@employee.Position</td>
+            <td>@employee.Salary</td>
+            <td>@employee.HireDate</td>
+            <td>@employee.Orders.Count</td>
+
+            <td>
+                <div class="action-buttons">
+
+                    <a asp-action="Details" asp-route-id="@employee.Id"
+                       class="btn-details">Details</a>
+
+                    <a asp-action="Edit" asp-route-id="@employee.Id"
+                       class="btn-edit">Edit</a>
+
+                    <form asp-action="Delete" method="post"
+                          onsubmit="return confirm('Are you sure you want to delete this employee?')">
+
+                        <input type="hidden" name="id" value="@employee.Id" />
+
+                        <button type="submit" class="btn-delete">Delete</button>
+
+                    </form>
+
+                </div>
+            </td>
+        </tr>
+    }
+</table>
