@@ -1,0 +1,62 @@
+﻿@model SupplyRequest
+
+@{
+    ViewData["Title"] = "Create Supply Request";
+
+    var products = ViewBag.Products as List<Product>;
+}
+
+<h2>Create Supply Request</h2>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Create" method="post">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Available Quantity</th>
+                <th>Required Quantity</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (products != null)
+            {
+                @foreach (var product in products)
+                {
+                    <tr>
+                        <td>@product.Name</td>
+                        <td>@product.Description</td>
+                        <td>@product.Price JD</td>
+                        <td>@product.Quantity</td>
+
+                        <td>
+                            <input type="hidden"
+                                   name="ProductIds"
+                                   value="@product.Id" />
+
+                            <input type="number"
+                                   name="Quantities"
+                                   value="0"
+                                   min="0"
+                                   class="form-control" />
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">
+        Submit Request
+    </button>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Cancel
+    </a>
+
+</form>

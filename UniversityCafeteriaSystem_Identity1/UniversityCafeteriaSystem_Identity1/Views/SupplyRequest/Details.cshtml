@@ -1,0 +1,43 @@
+﻿@model SupplyRequest
+
+@{
+    ViewData["Title"] = "Request Details";
+}
+
+<h2>Request Details</h2>
+
+<div>
+    <p><strong>Request ID:</strong> @Model.Id</p>
+    <p><strong>Request Date:</strong> @Model.RequestDate</p>
+    <p><strong>Status:</strong> @Model.Status</p>
+    <p><strong>Total Price:</strong> @Model.TotalPrice JD</p>
+</div>
+
+<h3>Requested Products</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.RequestItems)
+        {
+            <tr>
+                <td>@item.Product.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.Price JD</td>
+                <td>@(item.Price * item.Quantity) JD</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-secondary">
+    Back to Requests
+</a>
